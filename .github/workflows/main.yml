@@ -23,7 +23,7 @@ jobs:
           REPOSITORY: ${{ github.repository }}
           ISSUENUMBER: ${{ github.event.issue.number }}
           OPENAIAPIKEY: ${{ secrets.OPENAI_API_KEY }}
-        run: ./scripts/script.sh "$GITHUBTOKEN" "$REPOSITORY" "$ISSUENUMBER" "$OPENAIAPIKEY"
+        run: scripts/script.sh "$GITHUBTOKEN" "$REPOSITORY" "$ISSUENUMBER" "$OPENAIAPIKEY"
 
       - name: Upload autocoder artifact
         uses: actions/upload-artifact@v4
