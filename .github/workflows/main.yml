@@ -2,7 +2,7 @@ name: Autocoder Bot
 
 on:
   issues:
-    types: [opened, reopened]
+    types: [opened, reopened, labeled]
 
 jobs:
   run_autocoder:
