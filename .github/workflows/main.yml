@@ -1,27 +1,47 @@
-name: Access Issue Information
+name: Autocoder Bot
 
 on:
   issues:
     types: [opened, reopened]
 
 jobs:
-  access_issue_info:
+  run_autocoder:
+    if: contains(join(github.event.issue.labels.*.name, ' '), 'autocoder-bot')
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Print Issue Information
+      - name: Make script executable
+        run: chmod +x ./gpt_interaction_script.sh
+
+      - name: Run Autocoder Script
+        id: run_script
         env:
-          ISSUE_NUMBER: ${{ github.event.issue.number }}
-          ISSUE_TITLE: ${{ github.event.issue.title }}
-          ISSUE_BODY: ${{ github.event.issue.body }}
-          ISSUE_ASSIGNEES: ${{ join(github.event.issue.assignees.*.login, ', ') }}
-          ISSUE_LABELS: ${{ join(github.event.issue.labels.*.name, ', ') }}
+          GITHUBTOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPOSITORY: ${{ github.repository }}
+          ISSUENUMBER: ${{ github.event.issue.number }}
+          OPENAIAPIKEY: ${{ secrets.OPENAI_API_KEY }}
         run: |
-          echo "Issue Number: ${ISSUE_NUMBER}"
-          echo "Issue Title: ${ISSUE_TITLE}"
-          echo "Issue Body: ${ISSUE_BODY}"
-          echo "Issue Assignees: ${ISSUE_ASSIGNEES}"
-          echo "Issue Labels: ${ISSUE_LABELS}"
+          ./gpt_interaction_script.sh "$GITHUBTOKEN" "$REPOSITORY" "$ISSUENUMBER" "$OPENAIAPIKEY"
+
+      - name: Upload autocoder artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: autocoder-artifact
+          path: autocoder-bot
+
+  download_and_list_artifact:
+    needs: run_autocoder
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Download autocoder artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: autocoder-artifact
+          path: autocoder-artifact
+
+      - name: List all files recursively
+        run: ls -R autocoder-artifact
