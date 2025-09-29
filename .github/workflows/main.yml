@@ -23,8 +23,7 @@ jobs:
           REPOSITORY: ${{ github.repository }}
           ISSUENUMBER: ${{ github.event.issue.number }}
           OPENAIAPIKEY: ${{ secrets.OPENAI_API_KEY }}
-        run: |
-          ./gpt_interaction_script.sh "$GITHUBTOKEN" "$REPOSITORY" "$ISSUENUMBER" "$OPENAIAPIKEY"
+        run: ./scripts/script.sh "$GITHUBTOKEN" "$REPOSITORY" "$ISSUENUMBER" "$OPENAIAPIKEY"
 
       - name: Upload autocoder artifact
         uses: actions/upload-artifact@v3
@@ -32,11 +31,6 @@ jobs:
           name: autocoder-artifact
           path: autocoder-bot
 
-  download_and_list_artifact:
-    needs: run_autocoder
-    runs-on: ubuntu-latest
-
-    steps:
       - name: Download autocoder artifact
         uses: actions/download-artifact@v3
         with:
