@@ -47,6 +47,11 @@ runs:
         git config user.name "autocoder-bot"
         git config user.email "actions@github.com"
       shell: bash
+    - name: Commit generated files
+      run: |
+        git add .
+        git commit -m "Autocoder bot: Generated files for issue #${{ inputs.ISSUE_NUMBER }}" || echo "No changes to commit"
+      shell: bash
     - name: Create Pull Request with generated files
       uses: peter-evans/create-pull-request@v7
       with:
@@ -58,3 +63,4 @@ runs:
         labels: autocoder-bot
         author: "autocoder-bot <actions@github.com>"
         committer: "autocoder-bot <actions@github.com>"
+
