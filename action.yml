@@ -42,6 +42,11 @@ runs:
       env:
         GITHUB_TOKEN: ${{ inputs.GITHUB_TOKEN }}
         OPENAI_API_KEY: ${{ inputs.OPENAI_API_KEY }}
+    - name: Configure git for autocoder-bot
+      run: |
+        git config user.name "autocoder-bot"
+        git config user.email "actions@github.com"
+      shell: bash
     - name: Create Pull Request with generated files
       uses: peter-evans/create-pull-request@v7
       with:
