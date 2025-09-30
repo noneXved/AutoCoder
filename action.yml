@@ -1,4 +1,4 @@
-name: 'AutoCoder'
+name: 'AutoCoder123456'
 description: 'This action automates generating code from GitHub issues using OpenAI ChatGPT and creates a pull request with the generated code for review.'
 author: 'Your Name or Organization'
 inputs:
