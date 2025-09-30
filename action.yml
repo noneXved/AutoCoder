@@ -2,23 +2,23 @@ name: 'AutoCoder'
 description: 'This action automates generating code from GitHub issues using OpenAI ChatGPT and creating PRs'
 author: 'Your Name or Organization'
 inputs:
-  github_token:
-    description: 'Personal access token (PAT) used for GitHub API authentication. Required for creating pull requests and repository interactions.'
+  GITHUB_TOKEN:
+    description: 'Personal access token (PAT) used for GitHub API authentication. This token is required to create pull requests and handle other repository interactions.'
     required: true
-  repository:
-    description: 'The repository where the action will execute.'
+  REPOSITORY:
+    description: 'The repository where the action will be executed.'
     required: true
-  issue_number:
+  ISSUE_NUMBER:
     description: 'The number of the issue that triggered the action.'
     required: true
-  openai_api_key:
-    description: 'API key for OpenAI, used for interacting with ChatGPT to generate code from issue descriptions.'
+  OPENAI_API_KEY:
+    description: 'API key for OpenAI, enabling interactions with the ChatGPT service to generate code based on issue descriptions.'
     required: true
-  script_path:
+  SCRIPT_PATH:
     description: 'The path to the script that interacts with ChatGPT and generates code.'
     required: true
-  label:
-    description: 'Label that triggers the action'
+  LABEL:
+    description: 'Label that triggers the action.'
     required: true
     default: 'autocoder-bot'
 outputs:
