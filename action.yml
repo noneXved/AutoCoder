@@ -30,16 +30,19 @@ runs:
     - name: Greet Users
       run: echo "Hello, welcome to AutoCoder! Let's generate some code."
       shell: bash
+    - name: Make script executable
+      run: chmod +x ${{ inputs.SCRIPT_PATH }}
+      shell: bash
     - name: Generate Code from Issue
       run: |
-        ${{ inputs.script_path }} "${{ inputs.github_token }}" "${{ inputs.repository }}" "${{ inputs.issue_number }}" "${{ inputs.openai_api_key }}"
+        ${{ inputs.SCRIPT_PATH }} "${{ inputs.GITHUB_TOKEN }}" "${{ inputs.REPOSITORY }}" "${{ inputs.ISSUE_NUMBER }}" "${{ inputs.OPENAI_API_KEY }}"
       shell: bash
       env:
-        GITHUB_TOKEN: ${{ inputs.github_token }}
-        OPENAI_API_KEY: ${{ inputs.openai_api_key }}
+        GITHUB_TOKEN: ${{ inputs.GITHUB_TOKEN }}
+        OPENAI_API_KEY: ${{ inputs.OPENAI_API_KEY }}
     - name: Create Pull Request
       run: |
-        # Script to create a pull request from generated code should be implemented here
+        # Script or commands to create pull request here
       shell: bash
       env:
-        GITHUB_TOKEN: ${{ inputs.github_token }}
+        GITHUB_TOKEN: ${{ inputs.GITHUB_TOKEN }}
