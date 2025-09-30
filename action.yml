@@ -1,4 +1,4 @@
-name: Autocoder Bot
+name: AutoCoder
 description: |
   A reusable composite GitHub Action that automates issue-driven code generation
   using OpenAI ChatGPT API and creates pull requests with the generated code.
