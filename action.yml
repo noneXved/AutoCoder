@@ -1,18 +1,18 @@
 name: 'AutoCoder'
-description: 'This action automates generating code from GitHub issues using OpenAI ChatGPT and creating PRs'
+description: 'This action automates generating code from GitHub issues using OpenAI ChatGPT and creates a pull request with the generated code for review.'
 author: 'Your Name or Organization'
 inputs:
   GITHUB_TOKEN:
-    description: 'Personal access token (PAT) used for GitHub API authentication. This token is required to create pull requests and handle other repository interactions.'
+    description: 'Personal access token (PAT) used for GitHub API authentication. Required for creating pull requests and repository interactions.'
     required: true
   REPOSITORY:
-    description: 'The repository where the action will be executed.'
+    description: 'The repository where the action will execute.'
     required: true
   ISSUE_NUMBER:
     description: 'The number of the issue that triggered the action.'
     required: true
   OPENAI_API_KEY:
-    description: 'API key for OpenAI, enabling interactions with the ChatGPT service to generate code based on issue descriptions.'
+    description: 'API key for OpenAI, used for interacting with ChatGPT to generate code from issue descriptions.'
     required: true
   SCRIPT_PATH:
     description: 'The path to the script that interacts with ChatGPT and generates code.'
@@ -27,6 +27,8 @@ outputs:
 runs:
   using: 'composite'
   steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
     - name: Greet Users
       run: echo "Hello, welcome to AutoCoder! Let's generate some code."
       shell: bash
@@ -42,7 +44,7 @@ runs:
         OPENAI_API_KEY: ${{ inputs.OPENAI_API_KEY }}
     - name: Create Pull Request
       run: |
-        # Script or commands to create pull request here
+        # The script or commands to create a pull request with generated code go here
       shell: bash
       env:
         GITHUB_TOKEN: ${{ inputs.GITHUB_TOKEN }}
